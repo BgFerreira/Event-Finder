@@ -22,6 +22,6 @@ export const routes = [
         name: "home",
         Component: Home,
         path: "/home",
-        isPrivate: true
+        isPrivate: false
     }
 ]

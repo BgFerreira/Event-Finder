@@ -3,11 +3,17 @@ import { StyledInput, LabelContainer } from "./styledForm";
 import FormCard from "../cards/formCard";
 import BasicButtons from "../buttons/buttons"
 
-const LoginForm = (props) => {
+const SignupForm = (props) => {
     return (
         <FormCard>
-            <h2>Login</h2>
+            <h2>Signup</h2>
             <form {...props}>
+
+                <LabelContainer>
+                    <label htmlFor="fullname">fullname:</label>
+                    <StyledInput name="fullname" type="text" placeholder="enter your fullname:" />
+                </LabelContainer>
+
                 <LabelContainer>
                     <label htmlFor="username">Username:</label>
                     <StyledInput name="username" type="text" placeholder="enter your username:" />
@@ -18,9 +24,9 @@ const LoginForm = (props) => {
                     <StyledInput name="password" type="password" placeholder="enter your password:" />
                 </LabelContainer>
             </form>
-            <BasicButtons title={"login"}/>
+            <BasicButtons title={"Cadastrar"} />
         </FormCard>
     )
 }
 
-export default LoginForm;
+export default SignupForm;

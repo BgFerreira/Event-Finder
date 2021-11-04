@@ -10,4 +10,5 @@ export const StyledInput = styled.input`
 export const LabelContainer = styled.div`
     display: flex;
     flex-direction: column;
+    
 `

@@ -1,11 +1,9 @@
 import React from "react";
-
+import ButtonAppBar from "../navbar/navbar";
 const Home = () => {
 
     return (
-        <div>
-            Home
-        </div>
+       <ButtonAppBar/>
     )
 }
 

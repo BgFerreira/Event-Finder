@@ -20,22 +20,7 @@ export const GlobalStyle = createGlobalStyle`
   body {
     width: 100%;
     height: 100%;
-    background-color: #EEE;
-  }
-
-  body::-webkit-scrollbar {
-    width: 12px;              
-  }
-
-  body::-webkit-scrollbar-track {
-      background: none;    
-      border-radius: 20px;   
-  }
-
-  body::-webkit-scrollbar-thumb {
-      background-color: #141416;    
-      border-radius: 20px;      
-      border: 3px solid #191A1F;  
+    background-color: #03a9f4;
   }
 
   #root {
@@ -50,7 +35,7 @@ export const GlobalStyle = createGlobalStyle`
     justify-content: space-evenly;
     align-items:center;
     padding: 10px 0px;
-    height: 100%;
+    height: 70%;
     width: 100%;
   }
 `
