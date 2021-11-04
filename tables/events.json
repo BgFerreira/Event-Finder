@@ -1,12 +1,11 @@
 [
     {
-        "id": 1,
+        "id": 0,
         "title": "Teste da Aplicação",
-        "description": "Vamos testar o novo site do Bruno?",
-        "date": "2021-11-3",
+        "description": "Vamos testar o novo site do Bruno e do Fernando?",
+        "date": "2021-11-8",
         "time": "14:30:00",
-        "creator": "admin",
-        "participants": ["admin", "bruno"],
+        "participants": ["bruno"],
         "deleted": false
     }
 ]

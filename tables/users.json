@@ -1,23 +1,21 @@
 [
     {
-        "id": 1,
+        "id": 0,
         "name": "Administrador do Site",
         "username": "admin",
         "password": "123456",
         "userType": "adm",
         "eventsRegistered": [],
-        "eventsCreated": [],
         "deleted": false
     },
 
     {
-        "id": 2,
+        "id": 1,
         "name": "Bruno Fernandes",
         "username": "bruno",
         "password": "123456",
-        "userType": "common",
-        "eventsRegistered": [],
-        "eventsCreated": [],
+        "userType": "noAdm",
+        "eventsRegistered": ["Teste da Aplicação"],
         "deleted": false
     }
 ]

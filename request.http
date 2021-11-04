@@ -1,0 +1,20 @@
+###
+POST http://localhost:8000/login
+content-type: application/json
+
+{
+    "username": "admin",
+    "password": "123456"
+}
+
+
+###
+POST http://localhost:8000/signup
+content-type: application/json
+
+{
+    "name": "Request Tester",
+    "username": "teste123",
+    "password": "123456",
+    "confirmPassword": "123456"
+}
