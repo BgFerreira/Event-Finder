@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
+//import imgLogin from './backgroundLogin.jpg'
 
 export const GlobalStyle = createGlobalStyle`
 * {
@@ -20,8 +21,10 @@ export const GlobalStyle = createGlobalStyle`
   body {
     width: 100%;
     height: 100%;
-    background-color: #03a9f4;
+    background-color: #fff;
   }
+
+
 
   #root {
     width: 100%;
@@ -39,3 +42,12 @@ export const GlobalStyle = createGlobalStyle`
     width: 100%;
   }
 `
+
+/*body {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  background-image: url(${imgLogin});
+  background-repeat:no-repeat;
+  background-position:right bottom;
+}*/

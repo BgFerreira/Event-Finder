@@ -1,21 +1,29 @@
 [
     {
         "id": 0,
-        "name": "Administrador do Site",
-        "username": "admin",
-        "password": "123456",
+        "name": "The Dev",
+        "username": "dev",
+        "password": "$2b$13$46PR2GkOSq8odzYskC8wD.zrl10VxV9dQzNillv5lbmmtsLk1kOLK",
         "userType": "adm",
         "eventsRegistered": [],
         "deleted": false
     },
-
     {
         "id": 1,
         "name": "Bruno Fernandes",
         "username": "bruno",
-        "password": "123456",
+        "password": "$2b$13$XOL58KTERXJF5uKsJnG81uyQgvbbEtHbTau864ukiktPcTf7F376.",
         "userType": "noAdm",
-        "eventsRegistered": ["Teste da Aplicação"],
+        "eventsRegistered": [],
+        "deleted": false
+    },
+    {
+        "id": 2,
+        "name": "Fernando Neto",
+        "username": "fernando",
+        "password": "$2b$13$6wegQ/n.n6nm0cu.v0ayXO4fjNJ.mlnXbdvrIy8DF7dkNl.V0wGCK",
+        "userType": "noAdm",
+        "eventsRegistered": [],
         "deleted": false
     }
 ]

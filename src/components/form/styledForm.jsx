@@ -12,3 +12,8 @@ export const LabelContainer = styled.div`
     flex-direction: column;
     
 `
+
+export const Flex = styled.div`
+    display: flex; 
+    
+`
