@@ -2,7 +2,7 @@ import { Button, Container } from "@material-ui/core";
 import { Box } from "@material-ui/system";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import BasicButtons from "../buttons/buttons";
+import BasicButtons, { SecundaryButtons } from "../buttons/buttons";
 import ButtonAppBar from "../navbar/navbar";
 import api from "../../services/api";
 
@@ -24,6 +24,8 @@ const Event = () => {
 
     const [filtered, setFiltered] = useState([]);
     const [qrCode, setQrCode] = useState("");
+    const [apareceQr,SetApareceQr ] = useState(false);
+
 
     useEffect(() => {
         (async () => {
@@ -34,7 +36,9 @@ const Event = () => {
     }, []);
 
     async function QrRender() { 
-        console.log("test")
+        
+        SetApareceQr(!apareceQr)
+        console.log(apareceQr)
         setQrCode(await getQr(id))
        
     }
@@ -44,8 +48,7 @@ const Event = () => {
             <Box sx={{ flexGrow: 1, backgroundColor: '#fdfdfc' }}>
                 <ButtonAppBar />
                 <h1 style={{ marginTop: "50px", marginLeft: "50px" }}>{filtered.title}</h1>
-                <img style={{ marginTop: "50px", marginLeft: "50px", height: 200, right: 100 }} src={qrCode} alt="Qr" />
-                <div>{filtered.date !== 0 ? <h1 style={{ marginTop: "50px", marginLeft: "50px" }}>Qrcode Aqui!!!</h1> : " "}</div>
+                {apareceQr?<img style={{ marginTop: "50px", marginLeft: "50px", height: 200, right: 100 }} src={qrCode} alt="Qr" />:""}
                 <img style={{ marginTop: "50px", marginLeft: "50px", height: 200, right: 100 }} src={filtered.img} alt="Minha Figura" />
                 <p style={{ marginTop: "50px", marginLeft: "50px" }}>{filtered.description}</p>
 
@@ -53,7 +56,8 @@ const Event = () => {
                 <p style={{ marginTop: "50px", marginLeft: "50px" }}>Hora:{filtered.time}</p>
 
                 <Container maxWidth="lg" >
-                    <Button onClick={() => QrRender()}  variant="contained">confirmar presença</Button> 
+                    <Button onClick={() => QrRender()}  variant="contained">{apareceQr?"Cancelar presença":"confirmar presença"}</Button> 
+                    <SecundaryButtons title={"Voltar"} redirect ={"home"} />
                 </Container>
 
 

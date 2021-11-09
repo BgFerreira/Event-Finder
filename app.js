@@ -52,13 +52,18 @@ app.post("/login", async (req, res) => {
 
                 const allSessions = await readFile(SESSIONS_PATH)
 
+                logged = true;
+
                 const session = {
                     sessionHash: cookieHash,
                     userId: userFound.id,
                     userType: userFound.userType,
+                    eventsRegistered: userFound.eventsRegistered,
                     create: timestamp,
-                    expire: timestamp + cookieLifetime
+                    expire: timestamp + cookieLifetime,
+                    logged:logged
                 }
+            
 
                 allSessions.push(session);
 
@@ -66,13 +71,9 @@ app.post("/login", async (req, res) => {
                     .then((data) => {
                         console.log("Sessão salva");
 
-                        logged = true;
+                        
 
-                        res.send({
-                            eventsRegistred: userFound.eventsRegistered,
-                            userType: userFound.userType,
-                            logged: logged
-                        });
+                        res.send( session );
                     })
                     .catch((error) => {
                         res.status(500).json({ "message": "Erro no servidor. Tente novamente mais tarde" });
@@ -238,7 +239,7 @@ app.post("/post-events", async (req, res) => {
 
 app.get("/get-events/:eventId/generate-qrcode", async (req, res) => {
 
-    const { eventId } = req.params
+    const eventId = Number(req.params.eventId)
     const { cookieSession } = req.cookies;
 
     if (cookieSession !== undefined) {
@@ -248,34 +249,46 @@ app.get("/get-events/:eventId/generate-qrcode", async (req, res) => {
         const sessionFound = allSessions.find((element) => {
             return element.sessionHash === cookieSession;
         });
-
+               
         if (sessionFound !== undefined && sessionFound.expire > timestamp && sessionFound.create < timestamp) {
             const allQrcodes = await readFile(QRCODES_PATH);
-            const dataToHash = `${eventId}${sessionFound.userId}`;
 
-            const saltRounds = 10;
-            const salt = await bcrypt.genSalt(saltRounds);
-            const qrcodeHash = await bcrypt.hash(dataToHash, salt);
+            const qrcodeFound = allQrcodes.find((element) => {
+                if (element.userId === sessionFound.userId && element.eventId === eventId && element.valid === true) return element;
+            })
 
-            const newQrcode = {
-                hash: qrcodeHash,
-                userId: sessionFound.userId,
-                eventId: eventId,
-                valid: true
+            if(qrcodeFound === undefined) {
+                const dataToHash = `${eventId}${sessionFound.userId}`;
+    
+                const saltRounds = 10;
+                const salt = await bcrypt.genSalt(saltRounds);
+                const qrcodeHash = await bcrypt.hash(dataToHash, salt);
+                
+                const chekinUrl = `${URL}/checkIn?hash=${qrcodeHash}`;
+                const typeNumber = 5;
+                const errorCorrectionLevel = "L";
+                const qr = qrcode(typeNumber, errorCorrectionLevel);
+                qr.addData(chekinUrl);
+                qr.make();
+    
+                const qrUrl = qr.createDataURL(6);
+                console.log(chekinUrl);
+    
+                const newQrcode = {
+                    hash: qrcodeHash,
+                    qrUrl: qrUrl,
+                    userId: sessionFound.userId,
+                    eventId: eventId,
+                    valid: true
+                }
+    
+                allQrcodes.push(newQrcode);
+                writeFile(QRCODES_PATH, allQrcodes);
+
+                res.send(qrUrl);
+            } else {
+                res.send(qrcodeFound.qrUrl);
             }
-
-            allQrcodes.push(newQrcode);
-            writeFile(QRCODES_PATH, allQrcodes);
-            const chekinUrl = `${URL}/checkIn?hash=${qrcodeHash}`;
-            const typeNumber = 5;
-            const errorCorrectionLevel = "L";
-            const qr = qrcode(typeNumber, errorCorrectionLevel);
-            qr.addData(chekinUrl);
-            qr.make();
-
-            const qrUrl = qr.createDataURL(6);
-            console.log(chekinUrl)
-            res.send(qrUrl);
         } else {
             res.status(403).json({ "message": "Seção invalida! Faça o Login!" })
         }
@@ -283,6 +296,9 @@ app.get("/get-events/:eventId/generate-qrcode", async (req, res) => {
         res.status(403).json({ "message": "Cookie inválido" })
     }
 });
+
+
+
 
 // -------------------- VALIDATE QRCODE --------------------
 

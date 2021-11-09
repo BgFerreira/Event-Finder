@@ -5,14 +5,20 @@ import MediaCard from "../cardEvents/MediaCard";
 import ButtonAppBar from "../navbar/navbar";
 import BasicButtons from "../buttons/buttons"
 const Home = () => {
+    const session = JSON.parse(localStorage.getItem("session"))
+    console.log( session)
+   
+    const {userType} = session
+
 
     return (
         <>
             <Box sx={{ flexGrow: 1, backgroundColor: '#fdfdfc' }}>
                 <ButtonAppBar />
-                <Container maxWidth="lg" >
+                { userType === "adm"? <Container maxWidth="lg" >
                     <BasicButtons type={"submit"} title={"Cadastrar Evento"} redirect={'newEvent'} />
-                </Container>
+                </Container>: " "}
+               
                 <h1 style={{ marginTop: "50px", marginLeft: "50px" }}>Eventos:</h1>
                 <Stack spacing={2} direction="row">
                     <MediaCard />

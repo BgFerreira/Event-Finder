@@ -14,9 +14,8 @@ export const login_USER = async (_user) => {
     try {
         const { data } = await api.post("/login", _user,{withCredentials: true }
         );
-        console.log("user", _user)
-        const authentic = data.logged;
-        return { data, authentic };
+        console.log("user", _user)    
+        return  data;
 
     } catch (error) {
         const authentic = false;
@@ -44,11 +43,12 @@ const LoginForm = (props) => {
     const history = useHistory();
    
     const doLogin = async (values) => {
-     const logged = await login_USER(values)
-     if(logged.authentic){
+     const session = await login_USER(values)
+     if(session.logged){
+        localStorage.setItem("session", JSON.stringify(session) );
           history.push('/home');
      }
-         console.log(logged.authentic)       
+         console.log(session.logged)       
     };
 
     const formik = useFormik({
@@ -57,7 +57,6 @@ const LoginForm = (props) => {
             password: ''
         },
         onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
             doLogin(values);
         },
     });
@@ -78,7 +77,6 @@ const LoginForm = (props) => {
                         value={formik.values.username}
                         required
                     />
-
                 </LabelContainer>
 
                 <LabelContainer>

@@ -64,8 +64,6 @@ const NewEventForm = (props) => {
             time: "",
         },
         onSubmit: values => {
-         
-            alert(JSON.stringify(values, null, 2));
             goEvents(values)
 
             // doLogin(values);

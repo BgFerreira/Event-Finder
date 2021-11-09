@@ -50,7 +50,7 @@ export const SignUp_USER = async (_user) => {
     const goEvents = async (values) => {
     await SignUp_USER(values);
     console.log(values)
-    history.push("/home")
+    history.push("/")
 }
 
     const formik = useFormik({
@@ -69,7 +69,6 @@ export const SignUp_USER = async (_user) => {
                 return SetMsgError("As senhas são diferentes.")
             }
 
-            alert(JSON.stringify(values, null, 2));
             goEvents(values)
         },
     });
